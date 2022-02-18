@@ -36,6 +36,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xproto.h>
 #include <X11/Xutil.h>
+#include <Imlib2.h>
 #ifdef XINERAMA
 #include <X11/extensions/Xinerama.h>
 #endif /* XINERAMA */
@@ -1585,6 +1586,30 @@ setup(void)
 		PropModeReplace, (unsigned char *) "dwm", 3);
 	XChangeProperty(dpy, root, netatom[NetWMCheck], XA_WINDOW, 32,
 		PropModeReplace, (unsigned char *) &wmcheckwin, 1);
+	/////////////
+	Imlib_Image img;
+	Pixmap pix;
+	int width, height;
+
+	img = imlib_load_image("/home/phossi/Downloads/forest.xbm");
+	if(img != NULL){
+		imlib_context_set_image(img);
+		width = imlib_image_get_width();
+		height = imlib_image_get_height();
+		Screen *s = XScreenOfDisplay(dpy, screen);
+		pix = XCreatePixmap(dpy,root,width,height,DefaultDepthOfScreen(s));
+
+		imlib_context_set_display(dpy);
+		imlib_context_set_visual(DefaultVisualOfScreen(s));
+		imlib_context_set_colormap(DefaultColormapOfScreen(s));
+		imlib_context_set_drawable(pix);
+
+	imlib_render_image_on_drawable(0, 0);
+	}
+	
+	XSetWindowBackgroundPixmap(dpy, root, pix);
+	XClearWindow(dpy, root);
+	////////////
 	/* EWMH support per view */
 	XChangeProperty(dpy, root, netatom[NetSupported], XA_ATOM, 32,
 		PropModeReplace, (unsigned char *) netatom, NetLast);
