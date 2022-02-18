@@ -44,6 +44,7 @@
 
 #include "drw.h"
 #include "util.h"
+#include "custom.h"
 
 /* macros */
 #define BUTTONMASK              (ButtonPressMask|ButtonReleaseMask)
@@ -1587,28 +1588,7 @@ setup(void)
 	XChangeProperty(dpy, root, netatom[NetWMCheck], XA_WINDOW, 32,
 		PropModeReplace, (unsigned char *) &wmcheckwin, 1);
 	/////////////
-	Imlib_Image img;
-	Pixmap pix;
-	int width, height;
-
-	img = imlib_load_image("/home/phossi/Downloads/forest.xbm");
-	if(img != NULL){
-		imlib_context_set_image(img);
-		width = imlib_image_get_width();
-		height = imlib_image_get_height();
-		Screen *s = XScreenOfDisplay(dpy, screen);
-		pix = XCreatePixmap(dpy,root,width,height,DefaultDepthOfScreen(s));
-
-		imlib_context_set_display(dpy);
-		imlib_context_set_visual(DefaultVisualOfScreen(s));
-		imlib_context_set_colormap(DefaultColormapOfScreen(s));
-		imlib_context_set_drawable(pix);
-
-	imlib_render_image_on_drawable(0, 0);
-	}
-	
-	XSetWindowBackgroundPixmap(dpy, root, pix);
-	XClearWindow(dpy, root);
+	wBackgroundImage(dpy,root,FILEPATH);
 	////////////
 	/* EWMH support per view */
 	XChangeProperty(dpy, root, netatom[NetSupported], XA_ATOM, 32,
