@@ -6,8 +6,8 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const unsigned int marginpx  = 4;
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "SauceCodePro Nerd Font Mono:size=14:weight=bold:antialias=true:autohint=true" };
+static const char dmenufont[]       = "SauceCodePro Nerd Font Mono:size=12:antialias=true:autohint=true";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -21,7 +21,7 @@ static const char *colors[][3]      = {
 static const char *slockcmd[] = { "slock", NULL};
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "3", "4", "5", "6", "7", "8", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -45,7 +45,7 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
-#define FILEPATH "/home/phossi/Downloads/cringe.jpg"
+#define FILEPATH "/home/phossi/Downloads/forest.bmp"
 /* key definitions */
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
