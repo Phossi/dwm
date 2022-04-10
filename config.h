@@ -21,7 +21,7 @@ static const char *colors[][3]      = {
 static const char *slockcmd[] = { "slock", NULL};
 
 /* tagging */
-static const char *tags[] = { "", "", "3", "4", "5", "6", "7", "8", "" };
+static const char *tags[] = { "", "", "ﭮ", "", "5", "6", "7", "8", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
