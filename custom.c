@@ -2,15 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define PATH_SIZE 500
 int wBackgroundImage(Display *dpy, Window window, const char* FILEPATH) {
     Imlib_Image img;
     Pixmap pix;
 	FILE *command;
-	char path[100];
-	char args[100] = "ls ";
-	strcat(args,FILEPATH);
+	char path[PATH_SIZE];
+	char args[PATH_SIZE];
 	// random file command
-	strcat(args," |sort -R |tail -$N |while read file; do echo $file; done");
+	snprintf(args, PATH_SIZE, "ls %s | sort -R | tail -%d | while read file; do echo $file; done", FILEPATH, 10);
 	command = popen(args,"r");
 	if(command == NULL){
 		printf("Failed to run command\n");
@@ -20,13 +20,12 @@ int wBackgroundImage(Display *dpy, Window window, const char* FILEPATH) {
 	while (fgets(path, sizeof(path), command) != NULL) {
 		break;
 	}
+	fclose(command);
 
 	int width, height;
-	char realpath[100];
+	char realpath[PATH_SIZE];
 	// weird const conversion
-	strcpy(realpath,FILEPATH);
-	strcat(realpath,path);
-	fclose(command);
+    snprintf(realpath, PATH_SIZE, "%s%s", FILEPATH, path);
 	// omitting \n 
 	char *c = strtok(realpath,"\n");
 	// set bg image
